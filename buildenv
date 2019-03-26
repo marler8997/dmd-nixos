@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -ex
+dir=$(dirname $(realpath ${BASH_SOURCE[0]}))
+nix-env --profile $dir/nix-profile -iA \
+	nixos.coreutils \
+	nixos.which \
+	nixos.gnumake \
+	nixos.gcc7 \
+	nixos.binutils \
+	nixos.dmd \
+	nixos.git
+nix-env --profile $dir/nix-profile -f ~/git/marlernix -iA rund
+PATH="$dir/nix-profile/bin"
+exec "$@"
